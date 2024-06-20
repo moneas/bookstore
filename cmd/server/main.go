@@ -1,5 +1,3 @@
-// cmd/server/main.go
-
 package main
 
 import (
@@ -46,9 +44,13 @@ func main() {
 	orderRepository := database.NewOrderRepository(db)
 	orderService := application.NewOrderService(orderRepository)
 
-	// BIND user and order handlers
+	bookRepository := database.NewBookRepository(db)
+	bookService := application.NewBookService(bookRepository)
+
+	// BIND user, order, and book handlers
 	userHandler := http.NewUserHandler(userService)
 	orderHandler := http.NewOrderHandler(orderService)
+	bookHandler := http.NewBookHandler(bookService)
 
 	r := gin.Default()
 
@@ -57,6 +59,7 @@ func main() {
 	r.GET("/users", userHandler.GetUsers)
 	r.POST("/orders", orderHandler.CreateOrder)
 	r.GET("/ordersbyuser/:user_id", orderHandler.GetOrdersByUserID)
+	r.GET("/books", bookHandler.GetBooks)
 
 	// run GIN on port 8080
 	r.Run(":8080")

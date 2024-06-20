@@ -82,6 +82,25 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GET Books data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

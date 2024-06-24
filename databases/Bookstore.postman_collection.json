@@ -18,7 +18,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"demas\",\n    \"email\": \"demas3@example.com\",\n    \"username\": \"demas3\",\n    \"password\": \"supersecret\"\n}"
+					"raw": "{\n    \"name\": \"newuser\",\n    \"email\": \"newuser@example.com\",\n    \"username\": \"newuser\",\n    \"password\": \"password\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/users",
@@ -37,6 +37,21 @@
 		{
 			"name": "make an order",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "newuser",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
@@ -46,7 +61,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"user_id\": 3,\n    \"books\": [\n        {\"id\": 1, \"quantity\": 2},\n        {\"id\": 2, \"quantity\": 1}\n    ]\n}"
+					"raw": "{\n    \"books\": [\n        {\"id\": 1, \"quantity\": 2},\n        {\"id\": 2, \"quantity\": 1}\n    ]\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/orders",
@@ -66,18 +81,32 @@
 		{
 			"name": "GET orders by user ID",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "newuser",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/ordersbyuser/1",
+					"raw": "http://localhost:8080/myorders",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"ordersbyuser",
-						"1"
+						"myorders"
 					]
 				}
 			},

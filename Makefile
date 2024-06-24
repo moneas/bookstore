@@ -5,8 +5,6 @@ include .env
 GO := go
 GOFLAGS :=
 
-SRC_DIR := ./internal/infrastructure/database
-
 # Targets
 all: init-db seed-db run
 
@@ -22,7 +20,7 @@ run:
 # Test target to run all tests
 .PHONY: test
 test:
-	$(GO) test $(GOFLAGS) $(SRC_DIR) -v
+	go test -v ./...
 
 # Clean target to remove any build artifacts (optional)
 .PHONY: clean

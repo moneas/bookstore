@@ -16,8 +16,11 @@ This repository contains a simple bookstore service written in Go, using the Gin
    cd bookstore
    cp .env.example .env
 
-2. **Fill in the .env file with your database configuration:**
-   Update the DB_HOST, DB_PORT, DB_USER, DB_PASS, and DB_NAME with your MySQL database details.
+2. **Start the MySQL Docker container:**
+   in different terminal run this to start the docker
+    ```sh
+    docker-compose up -d 
+    ```
 
 3. **Install dependencies:**
    run : go mod tidy

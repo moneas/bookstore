@@ -33,6 +33,20 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 		return
 	}
 
+	userID, exists := c.Get("user_id")
+	if !exists {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get user ID"})
+		return
+	}
+
+	id, ok := userID.(uint)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Invalid user ID"})
+		return
+	}
+
+	order.UserID = id
+
 	err := h.service.CreateOrder(&order)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -60,19 +74,25 @@ func (h *OrderHandler) GetOrderDetails(c *gin.Context) {
 }
 
 func (h *OrderHandler) GetOrdersByUserID(c *gin.Context) {
-	userID, err := strconv.Atoi(c.Param("user_id"))
-	if err != nil {
+	userID, exists := c.Get("user_id")
+	if !exists {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
 		return
 	}
 
-	orders, err := h.service.GetOrdersByUserID(userID)
+	id, ok := userID.(uint)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get user ID"})
+		return
+	}
+
+	orders, err := h.service.GetOrdersByUserID(int(id))
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Orders not found"})
 		return
 	}
 
-	if orders == nil {
+	if len(orders) == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User didn't have any orders"})
 		return
 	}

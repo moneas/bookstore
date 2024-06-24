@@ -58,3 +58,9 @@ func (r *UserRepository) FindByEmail(email string) (*user.User, error) {
 	err := r.db.Get(&user, "SELECT * FROM users WHERE email=?", email)
 	return &user, err
 }
+
+func (r *UserRepository) FindByUsername(username string) (*user.User, error) {
+	var user user.User
+	err := r.db.Get(&user, "SELECT * FROM users WHERE username=?", username)
+	return &user, err
+}

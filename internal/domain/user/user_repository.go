@@ -5,4 +5,5 @@ type Repository interface {
 	FindByID(id uint) (*User, error)
 	Save(user *User) error
 	FindByEmail(email string) (*User, error)
+	FindByUsername(username string) (*User, error)
 }

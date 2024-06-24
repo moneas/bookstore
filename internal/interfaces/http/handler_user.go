@@ -46,5 +46,8 @@ func (h *UserHandler) CreateUser(c *gin.Context) {
 		return
 	}
 
+	//masking password
+	user.Password = "****"
+
 	c.JSON(http.StatusCreated, user)
 }

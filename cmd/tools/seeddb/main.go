@@ -18,17 +18,14 @@ func main() {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
 
-	// Database configuration from environment variables
 	dbHost := os.Getenv("DB_HOST")
 	dbPort := os.Getenv("DB_PORT")
 	dbUser := os.Getenv("DB_USER")
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
 
-	// Construct the DSN (Data Source Name)
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true&loc=Local", dbUser, dbPassword, dbHost, dbPort, dbName)
 
-	// Connect to the database
 	db, err := sqlx.Connect("mysql", dsn)
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)

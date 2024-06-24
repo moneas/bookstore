@@ -28,10 +28,8 @@ func main() {
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
 
-	// Construct the DSN (Data Source Name)
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true&loc=Local", dbUser, dbPassword, dbHost, dbPort, dbName)
 
-	// Initialize the database connection
 	db, err := sqlx.Connect("mysql", dsn)
 	if err != nil {
 		fmt.Printf("Error connecting to database: %v\n", err)
